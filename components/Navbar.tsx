@@ -70,7 +70,7 @@ export default function Navbar() {
           {/* Auth Buttons - Desktop */}
           <div className="hidden lg:flex items-center space-x-3">
             <Link href="/login">
-              <Button variant="ghost" size="sm" className="text-gray-700 hover:text-cyan-600 hover:bg-cyan-50">
+              <Button variant="outline" size="sm" className="text-gray-700 hover:text-cyan-600 hover:bg-cyan-50">
                 Entrar
               </Button>
             </Link>
@@ -116,7 +116,7 @@ export default function Navbar() {
               ))}
               <div className="pt-4 border-t border-gray-200 space-y-2">
                 <Link href="/login">
-                  <Button variant="ghost" size="sm" className="w-full text-gray-700 hover:text-cyan-600 hover:bg-cyan-50">
+                  <Button variant="outline" size="sm" className="w-full text-gray-700 hover:text-cyan-600 hover:bg-cyan-50">
                     Entrar
                   </Button>
                 </Link>
