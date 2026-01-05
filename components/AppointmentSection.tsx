@@ -1,6 +1,6 @@
 "use client";
 
-import { Stethoscope, Droplet, Video, ArrowRight } from "lucide-react";
+import { Stethoscope, FileText, Video, ArrowRight } from "lucide-react";
 
 export default function AppointmentSection() {
   const services = [
@@ -12,11 +12,11 @@ export default function AppointmentSection() {
       link: "/agendar-consulta"
     },
     {
-      title: "Doar Sangue",
-      description: "Salve vidas doando sangue em hemocentros próximos",
-      icon: Droplet,
-      color: "from-red-500 to-red-600",
-      link: "/doar-sangue"
+      title: "Prontuário Online",
+      description: "Acesse seu histórico médico e resultados de exames",
+      icon: FileText,
+      color: "from-purple-500 to-purple-600",
+      link: "/prontuario"
     },
     {
       title: "Consulta Online",
@@ -31,7 +31,6 @@ export default function AppointmentSection() {
     <section id="appointments" className="py-16 sm:py-20" style={{ background: 'linear-gradient(to bottom right, #B8E5F5 0%, #B8E5F5 10%, #F5DEB3 100%)' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          {/* Section Header */}
           <div className="text-center mb-12 space-y-4">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">
               Agende seus atendimentos
@@ -41,7 +40,6 @@ export default function AppointmentSection() {
             </p>
           </div>
 
-          {/* Services Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {services.map((service, index) => {
               const Icon = service.icon;
