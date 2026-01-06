@@ -1,353 +1,161 @@
 "use client";
 
-import { Bug, Thermometer, Syringe, Wind, Shield, Search, Heart, AlertTriangle, Users, Lock } from "lucide-react";
+import { useState } from "react";
+import { Bug, Thermometer, Syringe, Wind, Search, Shield } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
-import { useState } from "react";
 
-export default function PrevencaoPage() {
+export default function Prevencao() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeCategory, setActiveCategory] = useState("todas");
 
-  const categories = [
-    { id: "todas", name: "Todas", icon: Shield },
-    { id: "doencas", name: "Doenças", icon: Heart },
-    { id: "violencia", name: "Violência", icon: AlertTriangle },
-    { id: "seguranca", name: "Segurança", icon: Lock },
-    { id: "social", name: "Social", icon: Users },
-  ];
-
-  const items = [
-    // DOENÇAS
+  const diseases = [
     {
       id: 1,
       name: "Dengue",
       icon: Bug,
-      color: "text-red-600",
-      bgColor: "bg-red-50",
-      borderColor: "border-red-200",
+      description: "Previna-se eliminando água parada e usando repelente. A dengue é transmitida pelo mosquito Aedes aegypti.",
+      tip: "Verifique vasos, pneus e calhas regularmente.",
       link: "/prevencao/dengue",
-      category: "doencas",
+      color: "from-red-500 to-red-600",
+      bgColor: "bg-red-50",
+      iconColor: "text-red-600"
     },
     {
       id: 2,
       name: "Chikungunya",
       icon: Thermometer,
-      color: "text-orange-600",
-      bgColor: "bg-orange-50",
-      borderColor: "border-orange-200",
+      description: "Combata o mosquito transmissor mantendo ambientes limpos. Causa febres altas e dores nas articulações.",
+      tip: "Use telas em janelas e portas para proteção.",
       link: "/prevencao/chikungunya",
-      category: "doencas",
+      color: "from-orange-500 to-orange-600",
+      bgColor: "bg-orange-50",
+      iconColor: "text-orange-600"
     },
     {
       id: 3,
-      name: "Zika Vírus",
+      name: "Zika",
       icon: Syringe,
-      color: "text-purple-600",
-      bgColor: "bg-purple-50",
-      borderColor: "border-purple-200",
+      description: "Proteja-se com roupas adequadas e evite áreas de risco. Especialmente importante para gestantes.",
+      tip: "Gestantes devem ter cuidado especial.",
       link: "/prevencao/zika",
-      category: "doencas",
+      color: "from-purple-500 to-purple-600",
+      bgColor: "bg-purple-50",
+      iconColor: "text-purple-600"
     },
     {
       id: 4,
-      name: "Gripe (Influenza)",
+      name: "Gripe",
       icon: Wind,
-      color: "text-blue-600",
-      bgColor: "bg-blue-50",
-      borderColor: "border-blue-200",
+      description: "Vacine-se anualmente e mantenha a higiene das mãos. A gripe é altamente contagiosa.",
+      tip: "Evite aglomerações em períodos de surto.",
       link: "/prevencao/gripe",
-      category: "doencas",
+      color: "from-blue-500 to-blue-600",
+      bgColor: "bg-blue-50",
+      iconColor: "text-blue-600"
     },
     {
       id: 5,
       name: "COVID-19",
       icon: Shield,
-      color: "text-indigo-600",
-      bgColor: "bg-indigo-50",
-      borderColor: "border-indigo-200",
+      description: "Mantenha distanciamento, use máscara quando necessário e vacine-se. Higienize as mãos frequentemente.",
+      tip: "A vacinação é a melhor forma de proteção.",
       link: "/prevencao/covid-19",
-      category: "doencas",
-    },
-    {
-      id: 6,
-      name: "Hepatite",
-      icon: Shield,
-      color: "text-yellow-600",
-      bgColor: "bg-yellow-50",
-      borderColor: "border-yellow-200",
-      link: "#",
-      category: "doencas",
-    },
-    {
-      id: 7,
-      name: "Tuberculose",
-      icon: Shield,
-      color: "text-teal-600",
-      bgColor: "bg-teal-50",
-      borderColor: "border-teal-200",
-      link: "#",
-      category: "doencas",
-    },
-    {
-      id: 8,
-      name: "HIV/AIDS",
-      icon: Shield,
-      color: "text-pink-600",
-      bgColor: "bg-pink-50",
-      borderColor: "border-pink-200",
-      link: "#",
-      category: "doencas",
-    },
-    
-    // VIOLÊNCIA
-    {
-      id: 101,
-      name: "Feminicídio",
-      icon: AlertTriangle,
-      color: "text-red-700",
-      bgColor: "bg-red-50",
-      borderColor: "border-red-300",
-      link: "#",
-      category: "violencia",
-    },
-    {
-      id: 102,
-      name: "Violência Doméstica",
-      icon: AlertTriangle,
-      color: "text-orange-700",
-      bgColor: "bg-orange-50",
-      borderColor: "border-orange-300",
-      link: "#",
-      category: "violencia",
-    },
-    {
-      id: 103,
-      name: "Abuso Infantil",
-      icon: AlertTriangle,
-      color: "text-purple-700",
-      bgColor: "bg-purple-50",
-      borderColor: "border-purple-300",
-      link: "#",
-      category: "violencia",
-    },
-    {
-      id: 104,
-      name: "Violência Contra Idosos",
-      icon: AlertTriangle,
-      color: "text-amber-700",
-      bgColor: "bg-amber-50",
-      borderColor: "border-amber-300",
-      link: "#",
-      category: "violencia",
-    },
-    {
-      id: 105,
-      name: "Bullying e Cyberbullying",
-      icon: AlertTriangle,
-      color: "text-blue-700",
-      bgColor: "bg-blue-50",
-      borderColor: "border-blue-300",
-      link: "#",
-      category: "violencia",
-    },
-    
-    // SEGURANÇA
-    {
-      id: 201,
-      name: "Golpes Financeiros",
-      icon: Lock,
-      color: "text-green-700",
+      color: "from-green-600 to-green-700",
       bgColor: "bg-green-50",
-      borderColor: "border-green-300",
-      link: "#",
-      category: "seguranca",
-    },
-    {
-      id: 202,
-      name: "Golpes Online (Phishing)",
-      icon: Lock,
-      color: "text-cyan-700",
-      bgColor: "bg-cyan-50",
-      borderColor: "border-cyan-300",
-      link: "#",
-      category: "seguranca",
-    },
-    {
-      id: 203,
-      name: "Fraudes Telefônicas",
-      icon: Lock,
-      color: "text-indigo-700",
-      bgColor: "bg-indigo-50",
-      borderColor: "border-indigo-300",
-      link: "#",
-      category: "seguranca",
-    },
-    {
-      id: 204,
-      name: "Roubo de Identidade",
-      icon: Lock,
-      color: "text-violet-700",
-      bgColor: "bg-violet-50",
-      borderColor: "border-violet-300",
-      link: "#",
-      category: "seguranca",
-    },
-    {
-      id: 205,
-      name: "Segurança Digital",
-      icon: Lock,
-      color: "text-slate-700",
-      bgColor: "bg-slate-50",
-      borderColor: "border-slate-300",
-      link: "#",
-      category: "seguranca",
-    },
-    
-    // SOCIAL
-    {
-      id: 301,
-      name: "Abuso de Álcool",
-      icon: Users,
-      color: "text-red-600",
-      bgColor: "bg-red-50",
-      borderColor: "border-red-200",
-      link: "#",
-      category: "social",
-    },
-    {
-      id: 302,
-      name: "Uso de Drogas",
-      icon: Users,
-      color: "text-orange-600",
-      bgColor: "bg-orange-50",
-      borderColor: "border-orange-200",
-      link: "#",
-      category: "social",
-    },
-    {
-      id: 303,
-      name: "Saúde Mental",
-      icon: Users,
-      color: "text-purple-600",
-      bgColor: "bg-purple-50",
-      borderColor: "border-purple-200",
-      link: "#",
-      category: "social",
-    },
-    {
-      id: 304,
-      name: "Prevenção ao Suicídio",
-      icon: Users,
-      color: "text-yellow-600",
-      bgColor: "bg-yellow-50",
-      borderColor: "border-yellow-200",
-      link: "#",
-      category: "social",
-    },
-    {
-      id: 305,
-      name: "Gravidez na Adolescência",
-      icon: Users,
-      color: "text-pink-600",
-      bgColor: "bg-pink-50",
-      borderColor: "border-pink-200",
-      link: "#",
-      category: "social",
+      iconColor: "text-green-700"
     },
   ];
 
-  const filteredItems = items.filter(item => {
-    const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = activeCategory === "todas" || item.category === activeCategory;
-    return matchesSearch && matchesCategory;
-  });
+  const filteredDiseases = diseases.filter((disease) =>
+    disease.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    disease.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom right, #B8E5F5 0%, #B8E5F5 10%, #F5DEB3 100%)' }}>
+    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #E8F4E8 0%, #FFF9E6 50%, #FFFFFF 100%)' }}>
       <Navbar />
-      
+
       <main className="container mx-auto px-4 pt-24 pb-12 sm:pt-28 sm:pb-16">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
-              Central de Prevenção
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-600 to-green-700 rounded-2xl shadow-lg mb-4">
+              <Shield className="h-10 w-10 text-white" />
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-3">
+              Central de <span className="bg-gradient-to-r from-green-700 to-green-600 bg-clip-text text-transparent">Prevenção</span>
             </h1>
-            <p className="text-base text-gray-600">
-              Informações essenciais para proteger você e sua família
+            <p className="text-xl text-gray-700 max-w-2xl mx-auto">
+              Informações sobre doenças comuns e como preveni-las
             </p>
           </div>
 
           {/* Search Bar */}
-          <div className="max-w-md mx-auto mb-6">
+          <div className="max-w-2xl mx-auto mb-12">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               <input
                 type="text"
-                placeholder="Buscar..."
+                placeholder="Buscar doença... (ex: dengue, gripe, covid)"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-cyan-500 focus:outline-none text-gray-900"
+                className="w-full pl-12 pr-4 py-4 border-2 border-gray-300 rounded-xl focus:border-green-500 focus:outline-none text-gray-900 text-base shadow-sm"
               />
             </div>
           </div>
 
-          {/* Category Filters */}
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            {categories.map((category) => {
-              const Icon = category.icon;
-              return (
-                <button
-                  key={category.id}
-                  onClick={() => setActiveCategory(category.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all ${
-                    activeCategory === category.id
-                      ? "bg-cyan-500 text-white shadow-lg"
-                      : "bg-white text-gray-700 hover:bg-gray-100 border-2 border-gray-200"
-                  }`}
-                >
-                  <Icon className="h-4 w-4" />
-                  {category.name}
-                </button>
-              );
-            })}
+          {/* Info Box */}
+          <div className="bg-green-50 border-l-4 border-green-600 rounded-lg p-6 mb-12 max-w-4xl mx-auto">
+            <h3 className="font-bold text-green-900 mb-2 text-lg">
+              💡 Prevenção é o melhor remédio
+            </h3>
+            <p className="text-green-800 text-base leading-relaxed">
+              A maioria das doenças pode ser evitada com medidas simples de prevenção. 
+              Mantenha ambientes limpos, vacine-se regularmente e procure atendimento médico ao primeiro sinal de sintomas.
+            </p>
           </div>
 
-          {/* Items Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
-            {filteredItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link key={item.id} href={item.link}>
-                  <div className={`bg-white rounded-lg border-2 ${item.borderColor} p-4 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer group`}>
-                    <div className="flex flex-col items-center text-center gap-3">
-                      {/* Icon */}
-                      <div className={`w-12 h-12 ${item.bgColor} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                        <Icon className={`h-6 w-6 ${item.color}`} />
+          {/* Disease Cards Grid - Estilo Compacto */}
+          {filteredDiseases.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
+              {filteredDiseases.map((disease) => {
+                const Icon = disease.icon;
+                return (
+                  <Link key={disease.id} href={disease.link}>
+                    <div className="bg-white rounded-lg border-2 border-green-200 p-4 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer group">
+                      <div className="flex flex-col items-center text-center gap-3">
+                        {/* Icon */}
+                        <div className="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <Icon className="h-6 w-6 text-green-700" />
+                        </div>
+                        
+                        {/* Name */}
+                        <h3 className="text-sm font-semibold text-gray-900 leading-tight">
+                          {disease.name}
+                        </h3>
                       </div>
-                      
-                      {/* Name */}
-                      <h3 className="text-sm font-semibold text-gray-900 leading-tight">
-                        {item.name}
-                      </h3>
                     </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-
-          {/* No Results */}
-          {filteredItems.length === 0 && (
+                  </Link>
+                );
+              })}
+            </div>
+          ) : (
             <div className="text-center py-12">
               <p className="text-gray-500 text-lg">
-                Nenhum resultado encontrado
+                Nenhuma doença encontrada com "{searchTerm}"
               </p>
+              <button
+                onClick={() => setSearchTerm("")}
+                className="mt-4 text-green-600 hover:text-green-700 font-medium"
+              >
+                Limpar busca
+              </button>
             </div>
           )}
 
-          {/* Emergency Contacts */}
+          {/* Emergency Contacts - TODOS os números */}
           <div className="mt-12 bg-white rounded-xl shadow-md p-6 border border-gray-200">
             <h2 className="text-xl font-bold text-gray-900 mb-4 text-center">
               📞 Números de Emergência
@@ -391,7 +199,7 @@ export default function PrevencaoPage() {
           {/* Quick Info */}
           <div className="mt-6 text-center">
             <p className="text-xs text-gray-500">
-              {filteredItems.length} {filteredItems.length === 1 ? "tema disponível" : "temas disponíveis"}
+              {filteredDiseases.length} {filteredDiseases.length === 1 ? "doença disponível" : "doenças disponíveis"}
             </p>
           </div>
         </div>

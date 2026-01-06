@@ -1,130 +1,247 @@
 "use client";
 
-import { useState } from "react";
-import { Menu, X, Heart } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Menu, X, Heart, User, LogOut, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [showAgendarDropdown, setShowAgendarDropdown] = useState(false);
 
-  const navLinks = [
-    { name: "Início", href: "/", isExternal: true },
-    { name: "Prevenção", href: "/prevencao", isExternal: true },
-    { name: "Agendamentos", href: "/agendar-consulta", isExternal: true },
-    { name: "Prontuário", href: "/prontuario", isExternal: true },
-    { name: "Telemedicina", href: "/telemedicina", isExternal: true },
-    { name: "Contato", href: "#footer", isExternal: false },
-  ];
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
 
-  const handleNavClick = (href: string, isExternal: boolean) => {
-    setIsOpen(false);
-    
-    if (!isExternal && pathname !== "/") {
-      window.location.href = "/" + href;
+    // Verificar se há usuário logado
+    const user = localStorage.getItem("currentUser");
+    if (user) {
+      setCurrentUser(JSON.parse(user));
     }
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("currentUser");
+    setCurrentUser(null);
+    window.location.href = "/";
   };
 
+  const navLinks = [
+    { href: "/", label: "Início" },
+    { href: "/prevencao", label: "Prevenção" },
+    { 
+      href: "/agendar-consulta", 
+      label: "Agendar Consulta",
+      hasDropdown: true,
+      dropdownItems: [
+        { href: "/agendar-consulta/presencial", label: "Consulta Presencial" },
+        { href: "/agendar-consulta/telemedicina", label: "Telemedicina" },
+      ]
+    },
+    { href: "/transparencia", label: "Portal da Transparência" },
+    { href: "/prontuario", label: "Prontuário" },
+    { href: "/como-funciona", label: "Como Funciona" },
+  ];
+
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-md z-50">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white/95 backdrop-blur-md shadow-lg"
+          : "bg-white/80 backdrop-blur-sm"
+      }`}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 sm:h-20">
-          <Link href="/" className="flex items-center space-x-2 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-12 h-12 bg-gradient-to-br from-green-600 to-green-700 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
               <Heart className="h-6 w-6 text-white" />
             </div>
             <div className="hidden sm:block">
-              <span className="text-xl font-bold bg-gradient-to-r from-cyan-600 to-cyan-500 bg-clip-text text-transparent">
-                Saúde Digital
-              </span>
-              <p className="text-xs text-gray-600">Sistema Único de Saúde</p>
+              <div className="text-xl font-bold text-gray-900">Saúde Itabaiana</div>
+              <div className="text-xs text-gray-600">Prefeitura Municipal</div>
             </div>
           </Link>
 
-          <div className="hidden lg:flex items-center space-x-1">
+          {/* Desktop Menu */}
+          <div className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
-              link.isExternal ? (
-                <Link key={link.name} href={link.href}>
-                  <button
-                    className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-cyan-600 hover:bg-cyan-50 rounded-lg transition-colors"
+              <div key={link.href} className="relative group">
+                {link.hasDropdown ? (
+                  <>
+                    <Link
+                      href={link.href}
+                      className="text-gray-700 hover:text-green-700 font-medium transition-colors relative flex items-center gap-1"
+                      onMouseEnter={() => setShowAgendarDropdown(true)}
+                      onMouseLeave={() => setShowAgendarDropdown(false)}
+                    >
+                      {link.label}
+                      <ChevronDown className="h-4 w-4" />
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 group-hover:w-full transition-all duration-300"></span>
+                    </Link>
+                    
+                    {/* Dropdown */}
+
+                    <div 
+                      className={`absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50 transition-all duration-300 ${
+                        showAgendarDropdown 
+                          ? 'opacity-100 visible translate-y-0' 
+                          : 'opacity-0 invisible -translate-y-2'
+                      }`}
+                      onMouseEnter={() => setShowAgendarDropdown(true)}
+                      onMouseLeave={() => setShowAgendarDropdown(false)}
+                    >
+                      {link.dropdownItems?.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 transition-colors"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <Link
+                    href={link.href}
+                    className="text-gray-700 hover:text-green-700 font-medium transition-colors relative"
                   >
-                    {link.name}
-                  </button>
-                </Link>
-              ) : (
-                <button
-                  key={link.name}
-                  onClick={() => handleNavClick(link.href, link.isExternal)}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-cyan-600 hover:bg-cyan-50 rounded-lg transition-colors"
-                >
-                  {link.name}
-                </button>
-              )
+                    {link.label}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 group-hover:w-full transition-all duration-300"></span>
+                  </Link>
+                )}
+              </div>
             ))}
           </div>
 
-          <div className="hidden lg:flex items-center space-x-3">
-            <Link href="/login">
-              <Button variant="outline" size="sm" className="text-gray-700 hover:text-cyan-600 hover:bg-cyan-50">
-                Entrar
-              </Button>
-            </Link>
-            <Link href="/cadastro">
-              <Button size="sm" className="bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white shadow-md">
-                Cadastrar
-              </Button>
-            </Link>
-          </div>
-
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
-          >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-
-        {isOpen && (
-          <div className="lg:hidden py-4 border-t border-gray-200">
-            <div className="flex flex-col space-y-2">
-              {navLinks.map((link) => (
-                link.isExternal ? (
-                  <Link key={link.name} href={link.href}>
-                    <button
-                      onClick={() => setIsOpen(false)}
-                      className="w-full text-left px-4 py-3 text-sm font-medium text-gray-700 hover:text-cyan-600 hover:bg-cyan-50 rounded-lg transition-colors"
-                    >
-                      {link.name}
-                    </button>
-                  </Link>
-                ) : (
-                  <button
-                    key={link.name}
-                    onClick={() => handleNavClick(link.href, link.isExternal)}
-                    className="w-full text-left px-4 py-3 text-sm font-medium text-gray-700 hover:text-cyan-600 hover:bg-cyan-50 rounded-lg transition-colors"
-                  >
-                    {link.name}
-                  </button>
-                )
-              ))}
-              <div className="pt-4 border-t border-gray-200 space-y-2">
+          {/* Auth Buttons - Desktop */}
+          <div className="hidden lg:flex items-center gap-3">
+            {currentUser ? (
+              <div className="flex items-center gap-3">
+                <span className="text-gray-700 text-sm">
+                  Olá, <strong>{currentUser.fullName?.split(" ")[0]}</strong>
+                </span>
+                <Button
+                  onClick={handleLogout}
+                  variant="outline"
+                  size="sm"
+                  className="border-red-300 text-red-600 hover:bg-red-50"
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Sair
+                </Button>
+              </div>
+            ) : (
+              <>
                 <Link href="/login">
-                  <Button variant="outline" size="sm" className="w-full text-gray-700 hover:text-cyan-600 hover:bg-cyan-50">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-green-300 text-green-700 hover:bg-green-50"
+                  >
                     Entrar
                   </Button>
                 </Link>
                 <Link href="/cadastro">
-                  <Button size="sm" className="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white">
+                  <Button 
+                    size="sm"
+                    className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
+                  >
                     Cadastrar
                   </Button>
                 </Link>
+              </>
+            )}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? (
+              <X className="h-6 w-6 text-gray-700" />
+            ) : (
+              <Menu className="h-6 w-6 text-gray-700" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="lg:hidden border-t border-gray-200 bg-white shadow-lg">
+          <div className="container mx-auto px-4 py-6 space-y-4">
+            {navLinks.map((link) => (
+              <div key={link.href}>
+                <Link
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="block py-2 text-gray-700 hover:text-green-700 font-medium transition-colors"
+                >
+                  {link.label}
+                </Link>
+                {link.hasDropdown && link.dropdownItems && (
+                  <div className="ml-4 mt-2 space-y-2">
+                    {link.dropdownItems.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setIsOpen(false)}
+                        className="block py-2 text-sm text-gray-600 hover:text-green-700 transition-colors"
+                      >
+                        • {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
+            ))}
+            <div className="pt-4 border-t border-gray-200 space-y-3">
+              {currentUser ? (
+                <>
+                  <p className="text-sm text-gray-600 text-center">
+                    Olá, <strong>{currentUser.fullName?.split(" ")[0]}</strong>
+                  </p>
+                  <Button
+                    onClick={() => {
+                      handleLogout();
+                      setIsOpen(false);
+                    }}
+                    variant="outline"
+                    className="w-full border-red-300 text-red-600 hover:bg-red-50"
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sair
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" onClick={() => setIsOpen(false)}>
+                    <Button variant="outline" className="w-full border-green-300 text-green-700 hover:bg-green-50">
+                      Entrar
+                    </Button>
+                  </Link>
+                  <Link href="/cadastro" onClick={() => setIsOpen(false)}>
+                    <Button className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white">
+                      Cadastrar
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </nav>
   );
 }

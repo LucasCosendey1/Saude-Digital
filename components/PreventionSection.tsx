@@ -48,7 +48,7 @@ export default function PreventionSection() {
         <div className="text-center mb-12 space-y-4">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">
             Prevenção é o melhor{" "}
-            <span className="bg-gradient-to-r from-cyan-600 to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-green-700 to-green-600 bg-clip-text text-transparent">
               remédio
             </span>
           </h2>
@@ -67,8 +67,8 @@ export default function PreventionSection() {
                 className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 bg-white"
               >
                 <CardContent className="p-6 flex flex-col h-full">
-                  <div className="w-14 h-14 bg-cyan-100 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <Icon className="h-7 w-7 text-cyan-600" />
+                  <div className="w-14 h-14 bg-green-100 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <Icon className="h-7 w-7 text-green-700" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">{disease.name}</h3>
                   <p className="text-sm text-gray-600 leading-relaxed mb-3 flex-grow">
@@ -82,7 +82,7 @@ export default function PreventionSection() {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="w-full mt-4 border-cyan-300 hover:bg-cyan-50 hover:text-cyan-700"
+                        className="w-full mt-4 border-green-300 hover:bg-green-50 hover:text-green-700"
                       >
                         Saiba mais
                       </Button>
@@ -91,7 +91,7 @@ export default function PreventionSection() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="w-full mt-4 border-cyan-300 hover:bg-cyan-50 hover:text-cyan-700"
+                      className="w-full mt-4 border-green-300 hover:bg-green-50 hover:text-green-700"
                       disabled
                     >
                       Em breve

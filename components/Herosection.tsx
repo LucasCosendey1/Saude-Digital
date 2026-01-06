@@ -1,111 +1,127 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Calendar, Heart, MapPin } from "lucide-react";
 import Link from "next/link";
 
 export default function HeroSection() {
-  const scrollToAppointments = () => {
-    const element = document.querySelector("#appointments");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
-    <section id="hero" className="pt-24 pb-16 sm:pt-32 sm:pb-20" style={{ background: 'linear-gradient(to bottom right, #B8E5F5 0%, #B8E5F5 10%, #F5DEB3 100%)' }}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative min-h-screen flex items-center" style={{ background: 'linear-gradient(135deg, #E8F4E8 0%, #FFF9E6 50%, #FFFFFF 100%)' }}>
+      {/* Decorative Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-green-100/30 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-yellow-50/40 to-transparent rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full border border-green-200 shadow-sm">
+              <MapPin className="h-4 w-4 text-green-700" />
+              <span className="text-sm font-medium text-green-800">Prefeitura de Itabaiana - SE</span>
+            </div>
+
+            {/* Main Heading */}
             <div className="space-y-4">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Cuidar da sua saúde nunca foi{" "}
-                <span className="bg-gradient-to-r from-cyan-600 to-cyan-500 bg-clip-text text-transparent">
-                  tão fácil
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+                <span className="text-gray-900">Saúde </span>
+                <span className="bg-gradient-to-r from-green-700 to-green-600 bg-clip-text text-transparent">
+                  Itabaiana
                 </span>
               </h1>
-              <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-xl">
-                Informação, prevenção e atendimento em um só lugar. Acesse serviços de saúde de forma rápida e segura.
+              <p className="text-xl sm:text-2xl text-gray-700 leading-relaxed">
+                Cuidando da sua saúde com <strong className="text-green-700">qualidade</strong> e <strong className="text-green-700">compromisso</strong>
               </p>
             </div>
 
+            {/* Description */}
+            <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-xl">
+              Acesse serviços de saúde pública de Itabaiana de forma rápida e fácil. 
+              Agende consultas, acesse seu prontuário e cuide da sua família.
+            </p>
+
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                size="lg"
-                onClick={scrollToAppointments}
-                className="bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 group"
-              >
-                Começar Agora
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Link href="/como-funciona">
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-2 border-cyan-600 text-cyan-700 hover:bg-cyan-50"
-              >
-                Saiba mais
-              </Button>
-          </Link>
+              <Link href="/agendar-consulta">
+                <Button 
+                  size="lg" 
+                  className="w-full sm:w-auto bg-gradient-to-r from-green-700 to-green-600 hover:from-green-800 hover:to-green-700 text-white shadow-lg hover:shadow-xl transition-all text-base px-8 py-6"
+                >
+                  <Calendar className="mr-2 h-5 w-5" />
+                  Agendar Consulta
+                </Button>
+              </Link>
+              <Link href="/telemedicina">
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  className="w-full sm:w-auto border-2 border-green-600 text-green-700 hover:bg-green-50 text-base px-8 py-6"
+                >
+                  Telemedicina
+                </Button>
+              </Link>
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-200">
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-cyan-100 rounded-lg mb-2">
-                  <svg className="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                </div>
-                <p className="text-2xl font-bold text-gray-900">100%</p>
-                <p className="text-xs text-gray-600">Seguro</p>
+            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-green-200/50">
+              <div>
+                <div className="text-2xl sm:text-3xl font-bold text-green-700">24h</div>
+                <div className="text-sm text-gray-600">Atendimento</div>
               </div>
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-cyan-100 rounded-lg mb-2">
-                  <svg className="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <p className="text-2xl font-bold text-gray-900">24/7</p>
-                <p className="text-xs text-gray-600">Disponível</p>
+              <div>
+                <div className="text-2xl sm:text-3xl font-bold text-green-700">100%</div>
+                <div className="text-sm text-gray-600">SUS</div>
               </div>
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-cyan-100 rounded-lg mb-2">
-                  <svg className="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                </div>
-                <p className="text-2xl font-bold text-gray-900">5k+</p>
-                <p className="text-xs text-gray-600">Usuários</p>
+              <div>
+                <div className="text-2xl sm:text-3xl font-bold text-green-700">15+</div>
+                <div className="text-sm text-gray-600">Especialidades</div>
               </div>
             </div>
           </div>
 
-          {/* Right Image */}
-          <div className="relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img
-                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop"
-                alt="Pessoas praticando saúde e bem-estar"
-                className="w-full h-[400px] sm:h-[500px] object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/20 to-transparent"></div>
-            </div>
-            {/* Floating Card */}
-            <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg border border-gray-100 hidden sm:block">
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center">
-                  <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                  </svg>
+          {/* Right Content - Visual Element */}
+          <div className="hidden lg:block relative">
+            <div className="relative">
+              {/* Main Card */}
+              <div className="bg-white rounded-3xl shadow-2xl p-8 border border-green-100">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-green-700 rounded-2xl flex items-center justify-center shadow-lg">
+                    <Heart className="h-8 w-8 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900">Portal da Saúde</h3>
+                    <p className="text-gray-600">Serviços disponíveis</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-gray-900">Saúde em Dia</p>
-                  <p className="text-xs text-gray-600">Acompanhamento diário</p>
+
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 p-4 bg-green-50 rounded-xl border border-green-100">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-gray-700 font-medium">Agendamento Online</span>
+                  </div>
+                  <div className="flex items-center gap-3 p-4 bg-green-50 rounded-xl border border-green-100">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-gray-700 font-medium">Prontuário Digital</span>
+                  </div>
+                  <div className="flex items-center gap-3 p-4 bg-green-50 rounded-xl border border-green-100">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-gray-700 font-medium">Telemedicina</span>
+                  </div>
+                  <div className="flex items-center gap-3 p-4 bg-green-50 rounded-xl border border-green-100">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-gray-700 font-medium">Informações de Saúde</span>
+                  </div>
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-gray-100">
                 </div>
               </div>
+
+              {/* Floating Elements */}
+              <div className="absolute -top-6 -right-6 w-32 h-32 bg-gradient-to-br from-yellow-100 to-yellow-50 rounded-full blur-2xl opacity-60"></div>
+              <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-gradient-to-br from-green-100 to-green-50 rounded-full blur-2xl opacity-60"></div>
             </div>
           </div>
         </div>

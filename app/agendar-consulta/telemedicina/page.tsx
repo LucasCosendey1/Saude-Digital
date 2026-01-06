@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { Calendar, Clock, User, Video, CheckCircle2, CreditCard, Users as UsersIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
+import ProtectedRoute from "@/components/ProtectedRoute"; // ← ADICIONAR
 
 export default function Telemedicina() {
   const [formData, setFormData] = useState({
@@ -170,6 +171,7 @@ export default function Telemedicina() {
   };
 
   return (
+    <ProtectedRoute>
     <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom right, #B8E5F5 0%, #B8E5F5 10%, #F5DEB3 100%)' }}>
       <Navbar />
       <main className="container mx-auto px-4 pt-24 pb-8 sm:pt-28 sm:pb-12">
@@ -334,5 +336,6 @@ export default function Telemedicina() {
         </div>
       </main>
     </div>
+    </ProtectedRoute>
   );
 }

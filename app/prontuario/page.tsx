@@ -1,5 +1,6 @@
 "use client";
 
+import ProtectedRoute from "@/components/ProtectedRoute"; // ← ADICIONAR ESTA LINHA
 import { FileText, Calendar, Pill, Heart, Activity, User, Download, Eye } from "lucide-react";
 import Navbar from "@/components/Navbar";
 
@@ -103,6 +104,7 @@ export default function Prontuario() {
   ];
 
   return (
+    <ProtectedRoute>
     <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom right, #B8E5F5 0%, #B8E5F5 10%, #F5DEB3 100%)' }}>
       <Navbar />
       
@@ -284,5 +286,6 @@ export default function Prontuario() {
         </div>
       </main>
     </div>
+    </ProtectedRoute>
   );
 }

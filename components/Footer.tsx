@@ -1,79 +1,136 @@
-import { Heart, Mail, Phone, MapPin } from "lucide-react";
+"use client";
+
+import { Heart, MapPin, Phone, Mail, Facebook, Instagram } from "lucide-react";
+import Link from "next/link";
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const quickLinks = [
+    { label: "Início", href: "/" },
+    { label: "Prevenção", href: "/#prevention" },
+    { label: "Agendamentos", href: "/#appointments" },
+    { label: "Como Funciona", href: "/como-funciona" },
+  ];
+
+  const services = [
+    { label: "Consultas Presenciais", href: "/agendar-consulta" },
+    { label: "Telemedicina", href: "/telemedicina" },
+    { label: "Prontuário Online", href: "/prontuario" },
+    { label: "Portal da Transparência", href: "/transparencia" },
+  ];
 
   return (
-    <footer id="footer" className="bg-gray-900 text-white border-t border-gray-800 mt-20">
+    <footer className="bg-gradient-to-br from-green-900 via-green-800 to-green-900 text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="bg-gradient-to-r from-cyan-500 to-cyan-600 p-2 rounded-lg">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center">
                 <Heart className="h-6 w-6 text-white" />
               </div>
-              <span className="text-xl font-bold">
-                Saúde Digital
-              </span>
+              <div>
+                <div className="text-xl font-bold">Saúde Itabaiana</div>
+                <div className="text-sm text-green-200">Prefeitura Municipal</div>
+              </div>
             </div>
-            <p className="text-sm text-gray-400 leading-relaxed">
-              Cuidar da sua saúde nunca foi tão fácil. Informação, prevenção e atendimento em um só lugar.
+            <p className="text-sm text-green-100 leading-relaxed">
+              Cuidando da saúde dos cidadãos de Itabaiana com qualidade e compromisso.
             </p>
+            <div className="flex gap-3">
+              <a
+                href="#"
+                className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook className="h-5 w-5" />
+              </a>
+              <a
+                href="#"
+                className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+            </div>
           </div>
 
-          {/* Links Section */}
-          <div className="space-y-4">
-            <h3 className="text-base font-semibold text-white">Links Rápidos</h3>
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-lg font-bold mb-4">Links Rápidos</h3>
             <ul className="space-y-2">
-              <li>
-                <a href="#hero" className="text-sm text-gray-400 hover:text-cyan-400 transition-colors">
-                  Sobre
-                </a>
-              </li>
-              <li>
-                <a href="#prevention" className="text-sm text-gray-400 hover:text-cyan-400 transition-colors">
-                  Prevenção
-                </a>
-              </li>
-              <li>
-                <a href="#appointments" className="text-sm text-gray-400 hover:text-cyan-400 transition-colors">
-                  Agendamentos
-                </a>
-              </li>
-              <li>
-                <a href="#footer" className="text-sm text-gray-400 hover:text-cyan-400 transition-colors">
-                  Contato
-                </a>
-              </li>
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-green-100 hover:text-white transition-colors inline-flex items-center gap-2"
+                  >
+                    <span className="w-1.5 h-1.5 bg-green-400 rounded-full"></span>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact Section */}
-          <div className="space-y-4">
-            <h3 className="text-base font-semibold text-white">Contato</h3>
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <Mail className="h-4 w-4 text-cyan-400" />
-                <span className="text-sm text-gray-400">contato@saudedigital.gov.br</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="h-4 w-4 text-cyan-400" />
-                <span className="text-sm text-gray-400">136 - Disque Saúde</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <MapPin className="h-4 w-4 text-cyan-400" />
-                <span className="text-sm text-gray-400">Brasil - Sistema Único de Saúde</span>
-              </div>
-            </div>
+          {/* Services */}
+          <div>
+            <h3 className="text-lg font-bold mb-4">Serviços</h3>
+            <ul className="space-y-2">
+              {services.map((service) => (
+                <li key={service.href}>
+                  <Link
+                    href={service.href}
+                    className="text-sm text-green-100 hover:text-white transition-colors inline-flex items-center gap-2"
+                  >
+                    <span className="w-1.5 h-1.5 bg-green-400 rounded-full"></span>
+                    {service.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h3 className="text-lg font-bold mb-4">Contato</h3>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3">
+                <MapPin className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-green-100">
+                  Itabaiana, Sergipe - Brasil
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Phone className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-green-100">
+                  Central: 0800 XXX XXXX
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Mail className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-green-100">
+                  saude@itabaiana.se.gov.br
+                </span>
+              </li>
+            </ul>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-8 pt-8 border-t border-gray-800">
-          <p className="text-sm text-center text-gray-400">
-            © {currentYear} Saúde Digital - Sistema Único de Saúde. Protótipo para fins educacionais.
-          </p>
+        <div className="mt-12 pt-8 border-t border-green-700/50">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-green-200 text-center md:text-left">
+              © {new Date().getFullYear()} Prefeitura Municipal de Itabaiana - SE. Todos os direitos reservados.
+            </p>
+            <div className="flex gap-6">
+              <Link href="#" className="text-sm text-green-200 hover:text-white transition-colors">
+                Política de Privacidade
+              </Link>
+              <Link href="#" className="text-sm text-green-200 hover:text-white transition-colors">
+                Termos de Uso
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
