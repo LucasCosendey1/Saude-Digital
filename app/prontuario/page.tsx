@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar";
 export default function Prontuario() {
   // Dados mockados (exemplo)
   const dadosPessoais = {
-    nome: "Maria da Silva Santos",
+    nome: "Lucas Edson da Silva Cosendey",
     cartaoSUS: "123 4567 8901 2345",
     cpf: "123.456.789-00",
     dataNascimento: "15/03/1985",

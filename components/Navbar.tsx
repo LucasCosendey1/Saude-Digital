@@ -40,7 +40,7 @@ export default function Navbar() {
       label: "Agendar Consulta",
       hasDropdown: true,
       dropdownItems: [
-        { href: "/agendar-consulta/presencial", label: "Consulta Presencial" },
+        { href: "/agendar-consulta/Presencial", label: "Consulta Presencial" },
         { href: "/agendar-consulta/telemedicina", label: "Telemedicina" },
       ]
     },
