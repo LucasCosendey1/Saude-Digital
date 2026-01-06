@@ -20,7 +20,7 @@ export default function HeroSection() {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full border border-green-200 shadow-sm">
               <MapPin className="h-4 w-4 text-green-700" />
-              <span className="text-sm font-medium text-green-800">Prefeitura de Itabaiana - SE</span>
+              <span className="text-sm font-medium text-green-800">Prefeitura de Itabaiana - PB</span>
             </div>
 
             {/* Main Heading */}
